@@ -62,7 +62,7 @@ dim(train_set)
 [1] 14718   160
 ```
 
-```
+```r
 dim(test_set)
 ```
 
@@ -132,15 +132,21 @@ dim(test_set)
 [1] 4904   54
 ```
 
-
-
-
-
-
-
-
-
 ## 3 Correlation analysis
+
+In order to understand the relation between the varibales better, a correlation analysis is performed. The method is circle (standard) and for order FPC (first principal component) is chosen. 
+
+´´´r
+corr_matrix <- cor(train_set[ , -54])
+corrplot(corr_matrix, order = "FPC", method = "circle", type = "full",
+         tl.cex = 0.7, tl.col = rgb(0, 0, 0))
+´´´
+<img src="Rplot.png"
+     alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" />
+
+
+
 
 ## 4 Model building
 

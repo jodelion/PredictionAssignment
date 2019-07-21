@@ -23,17 +23,25 @@ data_quiz  <- read.csv(url(url_quiz),  strip.white = TRUE, na.strings = c("NA","
 in_train  <- createDataPartition(data_train$classe, p=0.75, list=FALSE)
 train_set <- data_train[ in_train, ]
 test_set  <- data_train[-in_train, ]
+dim(train_set)
+dim(test_set)
 
 nzv_var <- nearZeroVar(train_set)
 train_set <- train_set[ , -nzv_var]
 test_set  <- test_set [ , -nzv_var]
+dim(train_set)
+dim(test_set)
 
 na_var <- sapply(train_set, function(x) mean(is.na(x))) > 0.95
 train_set <- train_set[ , na_var == FALSE]
 test_set  <- test_set [ , na_var == FALSE]
+dim(train_set)
+dim(test_set)
 
 train_set <- train_set[ , -(1:5)]
 test_set  <- test_set [ , -(1:5)]
+dim(train_set)
+dim(test_set)
 
 # Correlation Analysis
 corr_matrix <- cor(train_set[ , -54])
