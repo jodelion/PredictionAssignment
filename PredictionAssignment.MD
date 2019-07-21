@@ -17,6 +17,26 @@ The data for this project come from this source: http://web.archive.org/web/2016
 
 
 ## 2 Loading and cleaning the data set
+We first set the working directory and load the required R packages
+
+```r
+setwd("C:/Users/P358774/Coursera/Prediction Assignment")
+
+library(lattice)
+library(ggplot2)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(corrplot)
+library(rattle)
+library(randomForest)
+library(RColorBrewer)
+library(e1071)
+library(gbm)
+
+set.seed(100)
+```
+
 
 ## 3 Correlation analysis
 
