@@ -136,11 +136,12 @@ dim(test_set)
 
 In order to understand the relation between the varibales better, a correlation analysis is performed. The method is circle (standard) and for order FPC (first principal component) is chosen. 
 
-´´´r
+```r
 corr_matrix <- cor(train_set[ , -54])
 corrplot(corr_matrix, order = "FPC", method = "circle", type = "full",
          tl.cex = 0.7, tl.col = rgb(0, 0, 0))
-´´´
+```
+
 <img src="Rplot.png"
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />
