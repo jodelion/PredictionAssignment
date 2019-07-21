@@ -81,7 +81,7 @@ dim(train_set)
 
 ```r
 [1] 14718   120
-
+```
 
 ```r
 dim(test_set)
@@ -215,7 +215,7 @@ plot(conf_matrix_decision_tree$table, col = conf_matrix_decision_tree$byClass,
                   round(conf_matrix_decision_tree$overall['Accuracy'], 3)))
 ```
 
-<img src="Rplot01.png"
+<img src="Rplot02.png"
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />
 
@@ -287,17 +287,107 @@ plot(conf_matrix_GBM$table, col = conf_matrix_GBM$byClass,
      main = paste("Generalized Boosted Model - Accuracy =", round(conf_matrix_GBM$overall['Accuracy'], 3)))
 ```
 
-<img src="Rplot01.png"
+<img src="Rplot03.png"
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />
      
      
 
 
-
-
-
-
 ### 4.3 Random Forest Model
 
+First step is to fit the model:
+
+```r 
+set.seed(100)
+ctrl_RF <- trainControl(method = "repeatedcv", number = 5, repeats = 1)
+fit_RF  <- train(classe ~ ., data = train_set, method = "rf",
+                 trControl = ctrl_RF, verbose = FALSE)
+fit_RF$finalModel
+```
+
+```r 
+Call:
+ randomForest(x = x, y = y, mtry = param$mtry, verbose = FALSE) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 27
+
+        OOB estimate of  error rate: 0.21%
+Confusion matrix:
+     A    B    C    D    E  class.error
+A 4183    1    0    0    1 0.0004778973
+B    6 2839    2    1    0 0.0031601124
+C    0    4 2563    0    0 0.0015582392
+D    0    0   10 2401    1 0.0045605307
+E    0    0    0    5 2701 0.0018477458
+```
+
+And then predict the test set:
+
+```r
+predict_RF <- predict(fit_RF, newdata = test_set)
+conf_matrix_RF <- confusionMatrix(predict_RF, test_set$classe)
+conf_matrix_RF
+```
+
+```r 
+Confusion Matrix and Statistics
+
+          Reference
+Prediction    A    B    C    D    E
+         A 1395    2    0    0    0
+         B    0  947    2    0    3
+         C    0    0  853    3    0
+         D    0    0    0  801    2
+         E    0    0    0    0  896
+
+Overall Statistics
+                                          
+               Accuracy : 0.9976          
+                 95% CI : (0.9957, 0.9987)
+    No Information Rate : 0.2845          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.9969          
+                                          
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: A Class: B Class: C Class: D Class: E
+Sensitivity            1.0000   0.9979   0.9977   0.9963   0.9945
+Specificity            0.9994   0.9987   0.9993   0.9995   1.0000
+Pos Pred Value         0.9986   0.9947   0.9965   0.9975   1.0000
+Neg Pred Value         1.0000   0.9995   0.9995   0.9993   0.9988
+Prevalence             0.2845   0.1935   0.1743   0.1639   0.1837
+Detection Rate         0.2845   0.1931   0.1739   0.1633   0.1827
+Detection Prevalence   0.2849   0.1941   0.1746   0.1637   0.1827
+Balanced Accuracy      0.9997   0.9983   0.9985   0.9979   0.9972
+```
+
+The accuracy is with 0.99 similar to the Generalized Boosted Model. The plot of the confusion matrix is shown below.
+
+```r
+plot(conf_matrix_RF$table, col = conf_matrix_RF$byClass, 
+     main = paste("Random Forest Model - Accuracy =", round(conf_matrix_RF$overall['Accuracy'], 3)))
+```
+
+<img src="Rplot04.png"
+     alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" />
+
+
 ## 5 Applying Random Forest to quiz data
+
+As the Random Forest Model shows the highest accuracy (0.9998) it is selected to predict the test set.
+
+```r 
+predict_quiz <- predict(fit_RF, newdata = data_quiz)
+predict_quiz
+```
+
+```r
+[1] B A B A A E D B A A B C B A E E A B B B
+Levels: A B C D E
+```
