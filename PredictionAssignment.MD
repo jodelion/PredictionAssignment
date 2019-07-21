@@ -37,6 +37,31 @@ library(gbm)
 set.seed(100)
 ```
 
+```
+Loaded gbm 2.1.5
+Warning message:
+package 'gbm' was built under R version 3.6.1
+```
+
+The next step is to load the data from the source stated above and to split the training data set into two parts (70% for creating the models, 30% for validation). The testing data set is not touched and will only be used to generate the answers for the quiz. 
+
+```r
+url_train <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+url_quiz  <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+
+data_train <- read.csv(url(url_train), strip.white = TRUE, na.strings = c("NA",""))
+data_quiz  <- read.csv(url(url_quiz),  strip.white = TRUE, na.strings = c("NA",""))
+
+in_train  <- createDataPartition(data_train$classe, p=0.75, list=FALSE)
+train_set <- data_train[ in_train, ]
+test_set  <- data_train[-in_train, ]
+dim(train_set)
+```
+
+```
+[1] 14718   160
+```
+
 
 ## 3 Correlation analysis
 
