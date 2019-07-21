@@ -57,6 +57,11 @@ predict_decision_tree <- predict(fit_decision_tree, newdata = test_set, type="cl
 conf_matrix_decision_tree <- confusionMatrix(predict_decision_tree, test_set$classe)
 conf_matrix_decision_tree
 
+summary_pred_dt <- data.frame(obs = as.factor(test_set$classe), predicted = predict_decision_tree)
+
+acc_dt <-sum(summary_pred_dt$obs==summary_pred_dt$predicted)/nrow(summary_pred_dt) 
+
+
 plot(conf_matrix_decision_tree$table, col = conf_matrix_decision_tree$byClass, 
      main = paste("Decision Tree Model - Accuracy =",
                   round(conf_matrix_decision_tree$overall['Accuracy'], 3)))
@@ -72,6 +77,10 @@ predict_GBM <- predict(fit_GBM, newdata = test_set)
 conf_matrix_GBM <- confusionMatrix(predict_GBM, test_set$classe)
 conf_matrix_GBM
 
+summary_pred_gbm <- data.frame(obs = as.factor(test_set$classe), predicted = predict_GBM)
+
+acc_gbm <-sum(summary_pred_gbm$obs==summary_pred_gbm$predicted)/nrow(summary_pred_gbm) 
+
 plot(conf_matrix_GBM$table, col = conf_matrix_GBM$byClass, 
      main = paste("Generalized Boosted Model - Accuracy =", round(conf_matrix_GBM$overall['Accuracy'], 3)))
 
@@ -85,6 +94,10 @@ fit_RF$finalModel
 predict_RF <- predict(fit_RF, newdata = test_set)
 conf_matrix_RF <- confusionMatrix(predict_RF, test_set$classe)
 conf_matrix_RF
+
+summary_pred_rfm <- data.frame(obs = as.factor(test_set$classe), predicted = predict_RF)
+
+acc_rfm <-sum(summary_pred_rfm$obs==summary_pred_rfm$predicted)/nrow(summary_pred_rfm) 
 
 plot(conf_matrix_RF$table, col = conf_matrix_RF$byClass, 
      main = paste("Random Forest Model - Accuracy =", round(conf_matrix_RF$overall['Accuracy'], 3)))

@@ -207,7 +207,29 @@ Detection Prevalence   0.3269   0.1752   0.1862   0.1723   0.1395
 Balanced Accuracy      0.8927   0.7612   0.8738   0.7778   0.8089
 ```
 
-The prediction accuracy is 0.73 and the plot is generated below.
+Calculating the accuracy using cross validation:
+
+```r 
+summary_pred_dt <- data.frame(obs = as.factor(test_set$classe), predicted = predict_decision_tree)
+acc_dt <-sum(summary_pred_dt$obs==summary_pred_dt$predicted)/nrow(summary_pred_dt)
+acc_dt
+´´´
+
+```r 
+[1] 0.7310359
+```
+
+And the estimated error (out of sample):
+
+```r 
+1-acc_dt
+```
+
+```r
+[1] 0.2689641
+```
+
+The accuracy is with 0.731 not very high. The plot is generated below.
 
 ```r
 plot(conf_matrix_decision_tree$table, col = conf_matrix_decision_tree$byClass, 
@@ -219,7 +241,7 @@ plot(conf_matrix_decision_tree$table, col = conf_matrix_decision_tree$byClass,
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />
 
-### 4.2 Generalized Boosted Model
+### 4.2 Generalized Boosted Model (with Cross Validation)
 
 First step is to fit the model:
 
@@ -280,7 +302,29 @@ Detection Prevalence   0.2859   0.1921   0.1764   0.1631   0.1825
 Balanced Accuracy      0.9985   0.9911   0.9945   0.9945   0.9953
 ```
 
-The accuracy is with 0.99 very high. The model could be already used to predict the quiz set. The plot of the matrix is shown below.
+Calculating the accuracy using cross validation:
+
+```r 
+summary_pred_gbm <- data.frame(obs = as.factor(test_set$classe), predicted = predict_GBM)
+acc_gbm <-sum(summary_pred_gbm$obs==summary_pred_gbm$predicted)/nrow(summary_pred_gbm)
+acc_gbm
+```
+
+```r 
+[1] 0.9922512
+```
+
+And the estimated error (out of sample):
+
+```r 
+1-acc_gbm
+```
+
+```r
+[1] 0.007748777
+```
+
+The accuracy is with 0.992 very high. The model could be already used to predict the quiz set. The plot of the matrix is shown below.
 
 ```r 
 plot(conf_matrix_GBM$table, col = conf_matrix_GBM$byClass, 
@@ -294,7 +338,7 @@ plot(conf_matrix_GBM$table, col = conf_matrix_GBM$byClass,
      
 
 
-### 4.3 Random Forest Model
+### 4.3 Random Forest Model (with Cross Validation)
 
 First step is to fit the model:
 
@@ -366,7 +410,30 @@ Detection Prevalence   0.2849   0.1941   0.1746   0.1637   0.1827
 Balanced Accuracy      0.9997   0.9983   0.9985   0.9979   0.9972
 ```
 
-The accuracy is with 0.99 similar to the Generalized Boosted Model. The plot of the confusion matrix is shown below.
+Calculating the accuracy using cross validation:
+
+```r
+summary_pred_rfm <- data.frame(obs = as.factor(test_set$classe), predicted = predict_RF)
+acc_rfm <-sum(summary_pred_rfm$obs==summary_pred_rfm$predicted)/nrow(summary_pred_rfm) 
+acc_rfm
+```
+
+```r 
+[1] 0.997553
+```
+
+And the estimated error (out of sample):
+
+```r 
+1-acc_rfm
+```
+
+```r
+[1] 0.002446982
+```
+
+
+The accuracy is with 0.998 similar to the Generalized Boosted Model. The plot of the confusion matrix is shown below.
 
 ```r
 plot(conf_matrix_RF$table, col = conf_matrix_RF$byClass, 
