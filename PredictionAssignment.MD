@@ -19,7 +19,7 @@ The data for this project come from this source: http://web.archive.org/web/2016
 ## 2 Loading and cleaning the data set
 We first set the working directory and load the required R packages
 
-```r
+```
 setwd("C:/Users/P358774/Coursera/Prediction Assignment")
 
 library(lattice)
@@ -45,7 +45,7 @@ package 'gbm' was built under R version 3.6.1
 
 The next step is to load the data from the source stated above and to split the training data set into two parts (70% for creating the models, 30% for validation). The testing data set is not touched and will only be used to generate the answers for the quiz. 
 
-```r
+```
 url_train <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
 url_quiz  <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
 
