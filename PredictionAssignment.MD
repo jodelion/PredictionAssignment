@@ -17,7 +17,7 @@ The data for this project come from this source: http://web.archive.org/web/2016
 
 
 ## 2 Loading and cleaning the data set
-We first set the working directory and load the required R packages
+We first set the working directory and load the required R packages.
 
 ```r
 setwd("C:/Users/P358774/Coursera/Prediction Assignment")
@@ -146,7 +146,7 @@ corrplot(corr_matrix, order = "FPC", method = "circle", type = "full",
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />
 
-Dark blue (positive correlation) and dark red (negative correlation) points to the degree of correlation. One can see that not many variables are strongly correlated. With a Principal Components Analysis the numbers of variables could be reduced further. However, this is most beneficial when you have many correlated variabes. In this case this is not very beneficial. 
+You can see that only a few variables show significat correlation (dark blue for positive, dark red for negative). From this we can conclude that a Principal Components Analysis (PCA) would not be beneficial and therefore is not conducted here. 
 
 ## 4 Model building
 
